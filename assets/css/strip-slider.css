@@ -1,0 +1,61 @@
+.shemvener-strip-slider-outer {
+    width: 100%;
+    overflow: hidden;
+    direction: rtl;
+}
+
+.strip-slider-wrapper {
+    position: relative;
+}
+
+.strip-slider-wrapper.fullwidth {
+    width: 100%;
+}
+
+.shemvener-swiper {
+    width: 100%;
+    height: auto;
+}
+
+.strip-slider-wrapper .strip-slide-item {
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: calc(100% - 40px) center;
+}
+
+.strip-slider-wrapper .strip-slide-item-inner {
+    border-right: 1px solid #ddd;
+    padding: 15px;
+    background-color: transparent;
+    display: flex;
+    flex-flow: column;
+    padding-inline-start: 70px;
+    align-items: flex-start;
+    text-align: start;
+    line-height: 1;
+}
+
+.strip-slider-wrapper .strip-slide-item .title a {
+    text-decoration: none;
+    color: #333;
+}
+
+.strip-slider-wrapper .strip-slide-item .entry-title {
+    display: block;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.strip-slider-wrapper .strip-slide-item .entry-years {
+    display: block;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.strip-slider-wrapper .strip-slide-item .description {
+    margin-top: 10px;
+    font-size: 0.85em;
+    color: #444;
+}
