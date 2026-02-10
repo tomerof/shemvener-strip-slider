@@ -1,0 +1,19 @@
+{
+  "name": "shemvener-strip-slider",
+  "version": "1.0.0",
+  "description": "A standalone plugin to show an infinite slider of deceased persons via an Elementor widget.",
+  "main": "bundle.js",
+  "scripts": {
+    "bundle": "node bundle.js"
+  },
+  "keywords": [],
+  "author": "Tomer",
+  "license": "ISC",
+  "dependencies": {
+    "archiver": "^7.0.1",
+    "dotenv": "^17.2.3",
+    "moment": "^2.30.1",
+    "parse-comments": "^1.0.0",
+    "ssh2-sftp-client": "^12.0.1"
+  }
+}

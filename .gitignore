@@ -1,0 +1,4 @@
+dist/
+update/
+node_modules/
+.env
