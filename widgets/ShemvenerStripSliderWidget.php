@@ -40,23 +40,28 @@ class ShemvenerStripSliderWidget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'api_url',
+			'api_environment',
 			[
-				'label' => esc_html__( 'API URL', 'shemvener-strip-slider' ),
-				'type' => Controls_Manager::TEXT,
-				'default' => 'http://host.docker.internal:8080/wp-json/shemvener/v1/strip-slider?format=json',
+				'label' => esc_html__( 'API Environment', 'shemvener-strip-slider' ),
+				'type' => Controls_Manager::SELECT,
+				'options' => [
+					'production'  => esc_html__( 'Production', 'shemvener-strip-slider' ),
+					'development' => esc_html__( 'Development', 'shemvener-strip-slider' ),
+					'other'       => esc_html__( 'Other', 'shemvener-strip-slider' ),
+				],
+				'default' => 'production',
 			]
 		);
 
 		$this->add_control(
-			'hide_sticker_counter',
+			'api_url',
 			[
-				'label' => esc_html__( 'Hide Sticker Counter', 'shemvener-strip-slider' ),
-				'type' => Controls_Manager::SWITCHER,
-				'label_on' => esc_html__( 'Hide', 'shemvener-strip-slider' ),
-				'label_off' => esc_html__( 'Show', 'shemvener-strip-slider' ),
-				'return_value' => 'yes',
-				'default' => '',
+				'label' => esc_html__( 'Custom API URL', 'shemvener-strip-slider' ),
+				'type' => Controls_Manager::TEXT,
+				'default' => 'https://shemvener.org.il/wp-json/shemvener/v1/strip-slider?format=json',
+				'condition' => [
+					'api_environment' => 'other',
+				],
 			]
 		);
 
@@ -65,8 +70,16 @@ class ShemvenerStripSliderWidget extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$api_url = $settings['api_url'];
-		$hide_sticker_counter = 'yes' === $settings['hide_sticker_counter'];
+
+		$environment = $settings['api_environment'];
+
+		if ( 'production' === $environment ) {
+			$api_url = 'https://shemvener.org.il/wp-json/shemvener/v1/strip-slider?format=json';
+		} elseif ( 'development' === $environment ) {
+			$api_url = 'https://dev.shemvener.org.il/wp-json/shemvener/v1/strip-slider?format=json';
+		} else {
+			$api_url = $settings['api_url'];
+		}
 
 		// In a real scenario, we might want to cache this response
 		$response = wp_remote_get( $api_url );
@@ -87,11 +100,8 @@ class ShemvenerStripSliderWidget extends Widget_Base {
 			return;
 		}
 
-		$slides_count = $data['slides_count'] ?? $hide_sticker_counter ? 6 : 5;
-		$wrapper_class = $hide_sticker_counter ? 'fullwidth' : '';
-
 		?>
-		<div class="shemvener-slider <?php echo esc_attr( $wrapper_class ); ?>">
+		<div class="shemvener-slider">
             <div class="shemvener-slider-track">
             <?php foreach ( $data['results'] as $deceased ) :
                 $first_name = isset( $deceased['first_name'] ) ? $deceased['first_name'] : '';
