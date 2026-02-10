@@ -1,23 +1,4 @@
-.shemvener-strip-slider-outer {
-    width: 100%;
-    overflow: hidden;
-    direction: rtl;
-}
-
-.strip-slider-wrapper {
-    position: relative;
-}
-
-.strip-slider-wrapper.fullwidth {
-    width: 100%;
-}
-
-.shemvener-swiper {
-    width: 100%;
-    height: auto;
-}
-
-.strip-slider-wrapper .strip-slide-item {
+.shemvener-slider .shemvener-slider-item {
     padding: 10px;
     box-sizing: border-box;
     background-color: #fff;
@@ -25,37 +6,106 @@
     background-position: calc(100% - 40px) center;
 }
 
-.strip-slider-wrapper .strip-slide-item-inner {
-    border-right: 1px solid #ddd;
-    padding: 15px;
+.shemvener-slider .shemvener-slider-item-inner {
     background-color: transparent;
     display: flex;
     flex-flow: column;
+    padding: 0;
     padding-inline-start: 70px;
     align-items: flex-start;
     text-align: start;
     line-height: 1;
+    width: 100%;
+    border-right: 1px solid #ddd;
+}
+.shemvener-slider .shemvener-slider-item .title {
+    font-size: 16px;
 }
 
-.strip-slider-wrapper .strip-slide-item .title a {
+.shemvener-slider .shemvener-slider-item .title a {
     text-decoration: none;
     color: #333;
+    font-size: 16px;
+    line-height: 1.2;
 }
 
-.strip-slider-wrapper .strip-slide-item .entry-title {
+.shemvener-slider .shemvener-slider-item .entry-title {
     display: block;
     font-weight: bold;
-    font-size: 1.1em;
 }
 
-.strip-slider-wrapper .strip-slide-item .entry-years {
+.shemvener-slider .shemvener-slider-item .entry-years {
     display: block;
     color: #666;
     font-size: 0.9em;
 }
 
-.strip-slider-wrapper .strip-slide-item .description {
+.shemvener-slider .shemvener-slider-item .description {
     margin-top: 10px;
-    font-size: 0.85em;
+    font-size: 12px;
+    color: #444;
+}
+
+/* 1. The Container: Hide the overflow and ensure RTL */
+.shemvener-slider {
+    width: 100%;
+    overflow: hidden;
+    direction: rtl;
+    padding: 20px 0;
+}
+
+/* 2. The Track: Force items into a single horizontal row */
+.shemvener-slider-track {
+    display: flex;
+    flex-wrap: nowrap; /* Prevents items from jumping to the next line */
+    overflow-x: auto;  /* Allows manual swiping/scrolling */
+    scroll-snap-type: x mandatory; /* Makes it "feel" like a slider */
+    gap: 15px;         /* Space between slides */
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+    cursor: grab;
+    user-select: none; /* Prevents text highlighting during drag */
+    -webkit-user-select: none;
+    touch-action: pan-y; /* Prevents vertical page scroll issues on mobile */
+}
+
+.shemvener-slider-track:active {
+    cursor: grabbing;
+}
+
+.shemvener-slider-track.is-dragging {
+    scroll-behavior: auto !important;
+    scroll-snap-type: none !important;
+}
+
+/* Hide scrollbars for a clean look */
+.shemvener-slider-track::-webkit-scrollbar {
+    display: none;
+}
+.shemvener-slider-track {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* 3. The Items: Set responsive widths */
+.shemvener-slider-item {
+    min-width: 250px;
+    scroll-snap-align: start;
+    box-sizing: border-box;
+    border-radius: 4px;
+    display: flex;
+    align-items: center; /* Vertical centering of content */
+}
+
+.shemvener-slider-item .entry-years {
+    display: block;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.shemvener-slider-item .description {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    line-height: 1.4;
     color: #444;
 }

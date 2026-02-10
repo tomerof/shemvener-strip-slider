@@ -91,38 +91,34 @@ class ShemvenerStripSliderWidget extends Widget_Base {
 		$wrapper_class = $hide_sticker_counter ? 'fullwidth' : '';
 
 		?>
-		<div class="shemvener-strip-slider-outer">
-			<div class="strip-slider-wrapper <?php echo esc_attr( $wrapper_class ); ?>">
-				<div class="slider-wrapper swiper shemvener-swiper" dir="rtl"> 
-					<div class="js-strip-slider swiper-wrapper" data-stripslidescount="<?php echo esc_attr( $slides_count ); ?>">
-						<?php foreach ( $data['results'] as $deceased ) :
-							$first_name = isset( $deceased['first_name'] ) ? $deceased['first_name'] : '';
-							$last_name = isset( $deceased['last_name'] ) ? $deceased['last_name'] : '';
-							$year_of_birth = isset( $deceased['year_of_birth'] ) ? $deceased['year_of_birth'] : '';
-							$year_of_death = isset( $deceased['year_of_death'] ) ? $deceased['year_of_death'] : '';
-							$id = isset( $deceased['ID'] ) ? $deceased['ID'] : ( isset( $deceased['id'] ) ? $deceased['id'] : 0 );
-							$info = isset( $deceased['description'] ) ? $deceased['description'] : ( isset( $deceased['info'] ) ? $deceased['info'] : '' );
-							?>
+		<div class="shemvener-slider <?php echo esc_attr( $wrapper_class ); ?>">
+            <div class="shemvener-slider-track">
+            <?php foreach ( $data['results'] as $deceased ) :
+                $first_name = isset( $deceased['first_name'] ) ? $deceased['first_name'] : '';
+                $last_name = isset( $deceased['last_name'] ) ? $deceased['last_name'] : '';
+                $year_of_birth = isset( $deceased['year_of_birth'] ) ? $deceased['year_of_birth'] : '';
+                $year_of_death = isset( $deceased['year_of_death'] ) ? $deceased['year_of_death'] : '';
+                $id = isset( $deceased['ID'] ) ? $deceased['ID'] : ( isset( $deceased['id'] ) ? $deceased['id'] : 0 );
+                $info = isset( $deceased['description'] ) ? $deceased['description'] : ( isset( $deceased['info'] ) ? $deceased['info'] : '' );
+                ?>
 
-							<div class="strip-slide-item swiper-slide" style="background-image: url('<?= $deceased['label_image'] ?>');">
-								<div class="strip-slide-item-inner">
-									<div class="title">
-										<a href="<?php echo esc_url( '/פרטי-תווית/?person_id=' . $id ); ?>" title="<?php echo esc_attr( $first_name ); ?>">
-											<span class="entry-title"><?php echo esc_html( $first_name . ' ' . $last_name ); ?></span>
-											<span class="entry-years"><?php echo esc_html( $year_of_birth . '-' . $year_of_death ); ?></span>
-										</a>
-									</div>
+                <div class="shemvener-slider-item" style="background-image: url('<?= $deceased['label_image'] ?>');">
+                    <div class="shemvener-slider-item-inner">
+                        <div class="title">
+                            <a href="<?php echo esc_url( 'https://shemvener.org.il/פרטי-תווית/?person_id=' . $id ); ?>" title="<?php echo esc_attr( $first_name ); ?>">
+                                <span class="entry-title"><?php echo esc_html( $first_name . ' ' . $last_name ); ?></span>
+                                <span class="entry-years"><?php echo esc_html( $year_of_birth . '-' . $year_of_death ); ?></span>
+                            </a>
+                        </div>
 
-									<div class="description">
-										<?php echo wp_kses_post( $info ); ?>
-									</div>
-								</div>
-							</div>
-						<?php endforeach; ?>
-					</div>
-				</div>
-			</div>
-		</div>
+                        <div class="description">
+                            <?php echo wp_kses_post( $info ); ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+            </div>
+        </div>
 		<?php
 	}
 
