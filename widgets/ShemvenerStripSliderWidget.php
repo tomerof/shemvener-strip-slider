@@ -115,7 +115,7 @@ class ShemvenerStripSliderWidget extends Widget_Base {
                 <div class="shemvener-slider-item" style="background-image: url('<?= $deceased['label_image'] ?>');">
                     <div class="shemvener-slider-item-inner">
                         <div class="title">
-                            <a href="<?php echo esc_url( 'https://shemvener.org.il/פרטי-תווית/?person_id=' . $id ); ?>" title="<?php echo esc_attr( $first_name ); ?>">
+                            <a target="_blank" href="<?php echo esc_url( 'https://names.shemvener.org.il/פרטי-תווית/?person_id=' . $id ); ?>" title="<?php echo esc_attr( $first_name ); ?>">
                                 <span class="entry-title"><?php echo esc_html( $first_name . ' ' . $last_name ); ?></span>
                                 <span class="entry-years"><?php echo esc_html( $year_of_birth . '-' . $year_of_death ); ?></span>
                             </a>
