@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Shemvener Strip Slider
  * Description: A standalone plugin to show an infinite slider of deceased persons via an Elementor widget.
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: Tomer
  * Text Domain: shemvener-strip-slider
  */
@@ -18,6 +18,7 @@ final class ShemvenerStripSliderPlugin {
 	public string $plugin_slug;
 	public string $cache_key;
 	public bool $cache_allowed;
+	public string $version;
 
 	public static function instance() {
 		if ( is_null( self::$_instance ) ) {
@@ -36,6 +37,9 @@ final class ShemvenerStripSliderPlugin {
 		$this->plugin_slug = plugin_basename( __DIR__ );
 		$this->cache_key = 'shemvener-strip-slider-update';
 		$this->cache_allowed = false;
+
+		$plugin_data = get_file_data( __FILE__, [ 'Version' => 'Version' ] );
+		$this->version = $plugin_data['Version'] ?? '1.0.0';
 	}
 
 	public function init() {
@@ -54,8 +58,8 @@ final class ShemvenerStripSliderPlugin {
 	}
 
 	public function enqueue_scripts() {
-		wp_enqueue_style( 'shemvener-strip-slider', plugin_dir_url( __FILE__ ) . 'assets/css/strip-slider.css', [], '1.0.0' );
-		wp_enqueue_script( 'shemvener-strip-slider', plugin_dir_url( __FILE__ ) . 'assets/js/strip-slider.js', [ 'jquery', 'elementor-frontend-modules' ], '1.0.0', true );
+		wp_enqueue_style( 'shemvener-strip-slider', plugin_dir_url( __FILE__ ) . 'assets/css/strip-slider.css', [], $this->version );
+		wp_enqueue_script( 'shemvener-strip-slider', plugin_dir_url( __FILE__ ) . 'assets/js/strip-slider.js', [ 'jquery', 'elementor-frontend-modules' ], $this->version, true );
 	}
 
 	public function info( $res, $action, $args ) {
@@ -103,11 +107,9 @@ final class ShemvenerStripSliderPlugin {
 
 		$remote = $this->request();
 		if(is_admin()){
-			$plugin_data = get_plugin_data( __FILE__ );
-	
 			if(
 				$remote
-				&& version_compare( $plugin_data['Version'], $remote->version, '<' )
+				&& version_compare( $this->version, $remote->version, '<' )
 				&& version_compare( $remote->requires, get_bloginfo( 'version' ), '<' )
 				&& version_compare( $remote->requires_php, PHP_VERSION, '<' )
 			) {
