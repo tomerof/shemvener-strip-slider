@@ -74,11 +74,30 @@ class ShemvenerStripSliderWidget extends Widget_Base {
 		$environment = $settings['api_environment'];
 
 		if ( 'production' === $environment ) {
-			$api_url = 'https://shemvener.org.il/wp-json/shemvener/v1/strip-slider?format=json';
+			$api_url = 'https://names.shemvener.org.il/wp-json/shemvener/v1/strip-slider?format=json';
 		} elseif ( 'development' === $environment ) {
 			$api_url = 'https://dev.shemvener.org.il/wp-json/shemvener/v1/strip-slider?format=json';
 		} else {
 			$api_url = $settings['api_url'];
+		}
+
+		$current_language = substr( get_locale(), 0, 2 );
+		$api_url_query = parse_url( $api_url, PHP_URL_QUERY );
+		$query_params = [];
+		if ( is_string( $api_url_query ) ) {
+			parse_str( $api_url_query, $query_params );
+		}
+
+		$params_to_add = [];
+		if ( ! isset( $query_params['lang'] ) ) {
+			$params_to_add['lang'] = $current_language;
+		}
+		if ( ! isset( $query_params['format'] ) ) {
+			$params_to_add['format'] = 'json';
+		}
+
+		if ( ! empty( $params_to_add ) ) {
+			$api_url = add_query_arg( $params_to_add, $api_url );
 		}
 
 		// In a real scenario, we might want to cache this response
@@ -112,20 +131,19 @@ class ShemvenerStripSliderWidget extends Widget_Base {
                 $info = isset( $deceased['description'] ) ? $deceased['description'] : ( isset( $deceased['info'] ) ? $deceased['info'] : '' );
                 ?>
 
-                <div class="shemvener-slider-item" style="background-image: url('<?= $deceased['label_image'] ?>');">
+                <a target="_blank" rel="noopener" href="<?php echo esc_url( 'https://names.shemvener.org.il/פרטי-תווית/?person_id=' . $id ); ?>" class="shemvener-slider-item" style="background-image: url('<?= $deceased['label_image'] ?>');" draggable="false">
                     <div class="shemvener-slider-item-inner">
                         <div class="title">
-                            <a target="_blank" href="<?php echo esc_url( 'https://names.shemvener.org.il/פרטי-תווית/?person_id=' . $id ); ?>" title="<?php echo esc_attr( $first_name ); ?>">
-                                <span class="entry-title"><?php echo esc_html( $first_name . ' ' . $last_name ); ?></span>
-                                <span class="entry-years"><?php echo esc_html( $year_of_birth . '-' . $year_of_death ); ?></span>
-                            </a>
+                            <span class="entry-title"><?php echo esc_html( $first_name . ' ' . $last_name ); ?></span>
+                            <span class="entry-years"><?php echo esc_html( $year_of_birth . '-' . $year_of_death ); ?></span>
                         </div>
 
                         <div class="description">
                             <?php echo wp_kses_post( $info ); ?>
                         </div>
                     </div>
-                </div>
+                    <span class="screen-reader-text"><?php echo esc_html__( '(opens in a new window)', 'shemvener-strip-slider' ); ?></span>
+                </a>
             <?php endforeach; ?>
             </div>
         </div>

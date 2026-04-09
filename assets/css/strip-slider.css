@@ -4,6 +4,19 @@
     background-color: #fff;
     background-repeat: no-repeat;
     background-position: calc(100% - 40px) center;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.shemvener-slider .shemvener-slider-item:hover {
+    background-color: #f9f9f9;
+}
+
+.shemvener-slider .shemvener-slider-item:focus {
+    outline: 2px solid #000;
+    outline-offset: -2px;
+    background-color: #f9f9f9;
 }
 
 .shemvener-slider .shemvener-slider-item-inner {
@@ -20,18 +33,15 @@
 }
 .shemvener-slider .shemvener-slider-item .title {
     font-size: 16px;
-}
-
-.shemvener-slider .shemvener-slider-item .title a {
-    text-decoration: none;
     color: #333;
-    font-size: 16px;
     line-height: 1.2;
 }
 
 .shemvener-slider .shemvener-slider-item .entry-title {
     display: block;
     font-weight: bold;
+    line-height: 1;
+    color: #000;
 }
 
 .shemvener-slider .shemvener-slider-item .entry-years {
@@ -44,6 +54,20 @@
     margin-top: 10px;
     font-size: 12px;
     color: #444;
+}
+
+/* Screen reader text only */
+.shemvener-slider .screen-reader-text {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    word-wrap: normal !important;
 }
 
 /* 1. The Container: Hide the overflow and ensure RTL */
