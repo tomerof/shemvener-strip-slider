@@ -34,7 +34,10 @@
 .shemvener-slider .shemvener-slider-item .title {
     font-size: 16px;
     color: #333;
-    line-height: 1.2;
+    line-height: 1;
+    display: flex;
+    flex-flow: column;
+    gap: 4px;
 }
 
 .shemvener-slider .shemvener-slider-item .entry-title {

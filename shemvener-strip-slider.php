@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Shemvener Strip Slider
  * Description: A standalone plugin to show an infinite slider of deceased persons via an Elementor widget.
- * Version: 1.0.7
+ * Version: 1.0.8
  * Author: Tomer
  * Text Domain: shemvener-strip-slider
  */
